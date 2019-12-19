@@ -1,0 +1,73 @@
+*
+    box-sizing: border-box
+
+body
+    margin: 0
+
+.container
+    position: relative
+    max-width: 1200px
+    margin: 0 auto
+    &_api
+        display: flex
+        justify-content: space-between
+        align-items: start
+
+.api
+    padding: 20px
+    background-color:#B8860B
+    height: 100%
+    &__search-window
+        width: 400px
+        background-color: #5F9EA0
+        display: flex
+        justify-content: center
+        text-align: start
+    &__search-result
+        width: 100%
+        margin: 0px 10px
+        background-color: #1e9773
+        &__anime-content
+            display: flex
+            justify-content: space-evenly
+            align-items: flex-start
+            flex-wrap: wrap
+            padding: 10px
+            &__item
+                display: flex
+                flex-direction: column
+                justify-content: space-between
+                background-color: #fff
+                min-height: 400px
+                width: 250px
+                margin: 10px
+                padding: 10px
+            &__title
+                color: black
+                font-size: 20px
+                text-align: center
+                margin-bottom: 5px
+            &__img
+                width: 230px
+                img
+                    width: 100%
+            &__bottom
+                display: flex
+                justify-content: space-between
+                align-items: start
+                font-size: 20px
+
+
+.search-form
+    &__content
+        &__label
+            display: block
+            width: 100%
+            margin-top: 10px
+            margin-bottom: 10px
+        &__input
+            display: inline-block
+            text-align: center
+            margin-bottom: 10px
+        &__btn
+
