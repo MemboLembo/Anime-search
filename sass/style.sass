@@ -13,7 +13,6 @@ html, body
         display: flex
         justify-content: space-between
         align-items: stretch
-        background-color: black
         min-height: 100%
 
 .anime-list
@@ -27,10 +26,12 @@ html, body
     display: flex
     justify-content: center
     align-items: start
+    border-radius: 20px 0 0 20px
 .search-result
     width: 100%
     margin: 0px 0px 0px 10px
     background-color: #1e9773
+    border-radius: 0 20px 20px 0
     &__anime-content
         display: flex
         justify-content: space-around
@@ -56,6 +57,8 @@ html, body
                 text-overflow: initial;
             &:hover .search-result__anime-content__img
                 height: 400px
+            &_last-row
+                padding: 0px
         &__title
             color: black
             font-size: 20px
