@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 </div>`
     };
 
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', function (e) {
+        e.preventDefault();
         const searchVar = userSearch.value;
         console.log(searchVar);
 
@@ -41,6 +42,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     itemElement.innerHTML = createItemHtml(result);
                 });
 
+                for (let i = 0; i < 3; i++) {
+                    const lastRow = document.createElement('div');
+                    lastRow.classList.add('search-result__anime-content__item', 'search-result__anime-content__item_last-row');
+                    animeContent.appendChild(lastRow);
+                }
             })
             .catch(function (error) {
                 console.error(error);
