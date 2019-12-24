@@ -1,61 +1,83 @@
 *
     box-sizing: border-box
 
-body
+html, body
     margin: 0
+    background-color: green
+    height: 100%
 
 .container
-    position: relative
-    max-width: 1200px
+    width: 1200px
     margin: 0 auto
-    &_api
+    &_anime-list
         display: flex
         justify-content: space-between
-        align-items: start
+        align-items: stretch
+        background-color: black
+        min-height: 100%
 
-.api
+.anime-list
     padding: 20px
     background-color:#B8860B
-    height: 100%
-    &__search-window
-        width: 400px
-        background-color: #5F9EA0
+    min-height: 100%
+    display: flex
+.search-window
+    width: 400px
+    background-color: #5F9EA0
+    display: flex
+    justify-content: center
+    align-items: start
+.search-result
+    width: 100%
+    margin: 0px 0px 0px 10px
+    background-color: #1e9773
+    &__anime-content
         display: flex
-        justify-content: center
-        text-align: start
-    &__search-result
-        width: 100%
-        margin: 0px 10px
-        background-color: #1e9773
-        &__anime-content
+        justify-content: space-around
+        align-items: flex-start
+        flex-wrap: wrap
+        padding: 10px
+        &__item
             display: flex
-            justify-content: space-evenly
-            align-items: flex-start
-            flex-wrap: wrap
+            flex-direction: column
+            justify-content: space-between
+            background-color: #fff
+            max-height: 400px
+            width: 250px
+            margin: 18px
             padding: 10px
-            &__item
-                display: flex
-                flex-direction: column
-                justify-content: space-between
-                background-color: #fff
-                min-height: 400px
+            transition: 2s all
+            &:hover
+                max-height: 460px
                 width: 250px
-                margin: 10px
-                padding: 10px
-            &__title
-                color: black
-                font-size: 20px
-                text-align: center
-                margin-bottom: 5px
-            &__img
-                width: 230px
-                img
-                    width: 100%
-            &__bottom
-                display: flex
-                justify-content: space-between
-                align-items: start
-                font-size: 20px
+            &:hover .search-result__anime-content__title
+                white-space: initial;
+                overflow: initial;
+                text-overflow: initial;
+            &:hover .search-result__anime-content__img
+                height: 400px
+        &__title
+            color: black
+            font-size: 20px
+            text-align: center
+            margin-bottom: 5px
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        &__img
+            display: flex
+            align-items: center
+            width: 230px
+            height: 290px
+            margin: auto
+            overflow: hidden
+            img
+                width: 100%
+        &__bottom
+            display: flex
+            justify-content: space-between
+            align-items: center
+            font-size: 20px
 
 
 .search-form

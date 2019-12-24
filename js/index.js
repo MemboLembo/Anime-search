@@ -11,13 +11,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
             image_url: imageUrl, 
             episodes: episodeCount
         } = result;
-        return `<div class="api__search-result__anime-content__title">${title}</div>
-                <div class="api__search-result__anime-content__img">
+        return `<div class="search-result__anime-content__title">${title}</div>
+                <div class="search-result__anime-content__img">
                     <img src="${imageUrl}" alt="image">
                 </div>
-                <div class="api__search-result__anime-content__bottom">
-                    <div class="api__search-result__anime-content__score">&#x2605 ${score}</div>
-                    <div class="api__search-result__anime-content__episodes">ep. ${episodeCount}</div>
+                <div class="search-result__anime-content__bottom">
+                    <div class="search-result__anime-content__score">&#x2605 ${score}</div>
+                    <div class="search-result__anime-content__episodes">ep. ${episodeCount}</div>
                 </div>`
     };
 
@@ -31,11 +31,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
             })
             .then(function (data) {
                 console.log(data);
-                const animeContent = document.querySelector('.api__search-result__anime-content');
+                const animeContent = document.querySelector('.search-result__anime-content');
 
                 data.results.forEach(result => {
                     const itemElement = document.createElement('div');
-                    itemElement.classList.add('api__search-result__anime-content__item');
+                    itemElement.classList.add('search-result__anime-content__item');
                     animeContent.appendChild(itemElement);
 
                     itemElement.innerHTML = createItemHtml(result);
