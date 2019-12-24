@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         e.preventDefault();
         const searchVar = userSearch.value;
         console.log(searchVar);
-
+        
         fetch(`https://api.jikan.moe/v3/search/anime?q=${searchVar}`)
             .then(function (resp) {
                 return resp.json()
@@ -33,13 +33,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
             .then(function (data) {
                 console.log(data);
                 const animeContent = document.querySelector('.search-result__anime-content');
+                animeContent.innerHTML = '';
 
                 data.results.forEach(result => {
                     const itemElement = document.createElement('div');
                     itemElement.classList.add('search-result__anime-content__item');
                     animeContent.appendChild(itemElement);
 
-                    itemElement.innerHTML = createItemHtml(result);
+                    const hoverElement = document.createElement('div');
+                    hoverElement.classList.add('search-result__anime-content__hover');
+                    itemElement.appendChild(hoverElement);
+
+                    hoverElement.innerHTML = createItemHtml(result);
                 });
 
                 for (let i = 0; i < 3; i++) {

@@ -17,7 +17,7 @@ html, body
 
 .anime-list
     padding: 20px
-    background-color:#B8860B
+    background-color: #B8860B
     min-height: 100%
     display: flex
 .search-window
@@ -39,40 +39,56 @@ html, body
         flex-wrap: wrap
         padding: 10px
         &__item
+            background-color: #1e9773
+            height: 400px
+            width: 250px
+            margin: 18px
+            &:hover .search-result__anime-content__hover
+                background-color: #9166f5
+                min-height: 420px
+                max-height: 600px
+                min-width: 270px
+                width: max-content
+                position: relative
+                top: 50%
+                left: 50%
+                transform: translate(-50%, -50%)
+            &:hover .search-result__anime-content__title
+                margin: 0 auto
+                max-width: 350px
+                white-space: initial
+                overflow: initial
+                text-overflow: initial
+            &:hover .search-result__anime-content__img
+                max-width: 470px
+                max-height: 500px
+            &:hover img
+                width: 100%
+            &_last-row
+                padding: 0px
+                height: 0px
+        &__hover
             display: flex
             flex-direction: column
             justify-content: space-between
             background-color: #fff
-            max-height: 400px
+            min-height: 400px
             width: 250px
-            margin: 18px
             padding: 10px
-            transition: 2s all
-            &:hover
-                max-height: 460px
-                width: 250px
-            &:hover .search-result__anime-content__title
-                white-space: initial;
-                overflow: initial;
-                text-overflow: initial;
-            &:hover .search-result__anime-content__img
-                height: 400px
-            &_last-row
-                padding: 0px
         &__title
             color: black
             font-size: 20px
             text-align: center
             margin-bottom: 5px
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
         &__img
             display: flex
             align-items: center
-            width: 230px
-            height: 290px
-            margin: auto
+            max-height: 290px
+            max-width: 230px
+            margin: 0 auto
             overflow: hidden
             img
                 width: 100%
