@@ -46,10 +46,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 console.error(error);
             });
     });
-
-    // let item = document.querySelector('.search-result__anime-content');
-
-    // item.addEventListener('mouseenter', function () {
-    //     document.querySelector('.api__search-result__anime-content__item').style.cssText = "height: 420px; width: 270px"; 
-    // })
 });
