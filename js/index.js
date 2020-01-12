@@ -25,36 +25,57 @@ document.addEventListener("DOMContentLoaded", function (event) {
         e.preventDefault();
         const searchVar = userSearch.value;
         console.log(searchVar);
-        
+        const loadingAnimation = document.querySelector('.letter-holder');
+        loadingAnimation.style = "display: block;";
+
         fetch(`https://api.jikan.moe/v3/search/anime?q=${searchVar}`)
             .then(function (resp) {
-                return resp.json()
+                if (resp.ok) {
+                    return resp.json()
+                }
+
+                return resp.json().then(errorData => { 
+                    const e = new Error ('Something went wrong');
+                    e.data = errorData;
+                    throw e;
+                });
             })
             .then(function (data) {
-                console.log(data);
+                loadingAnimation.style = "display: none;";
+                
                 const animeContent = document.querySelector('.search-result__anime-content');
                 animeContent.innerHTML = '';
 
-                data.results.forEach(result => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('search-result__anime-content__item');
-                    animeContent.appendChild(itemElement);
-
-                    const hoverElement = document.createElement('div');
-                    hoverElement.classList.add('search-result__anime-content__hover');
-                    itemElement.appendChild(hoverElement);
-
-                    hoverElement.innerHTML = createItemHtml(result);
-                });
-
-                for (let i = 0; i < 3; i++) {
-                    const lastRow = document.createElement('div');
-                    lastRow.classList.add('search-result__anime-content__item', 'search-result__anime-content__item_last-row');
-                    animeContent.appendChild(lastRow);
+                if (data.results.length == 0) {
+                    animeContent.innerHTML = 'Nothing has been found';
+                } else {
+                    data.results.forEach(result => {
+                        const itemElement = document.createElement('div');
+                        itemElement.classList.add('search-result__anime-content__item');
+                        animeContent.appendChild(itemElement);
+    
+                        const hoverElement = document.createElement('div');
+                        hoverElement.classList.add('search-result__anime-content__hover');
+                        itemElement.appendChild(hoverElement);
+    
+                        hoverElement.innerHTML = createItemHtml(result);
+                    });
+                    
+                    for (let i = 0; i < 3; i++) {
+                        const lastRow = document.createElement('div');
+                        lastRow.classList.add('search-result__anime-content__item', 'search-result__anime-content__item_last-row');
+                        animeContent.appendChild(lastRow);
+                    }
                 }
+
             })
             .catch(function (error) {
-                console.error(error);
+                const loadingStatus = document.querySelector('.loading-status');
+                if (error.message === 'Something went wrong') {
+                    loadingStatus.innerText = `Something went wrong, try again later`;
+                } else {
+                    loadingStatus.innerText = 'Failed to connect';
+                }
             });
     });
 });
