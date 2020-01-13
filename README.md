@@ -1,4 +1,6 @@
 # Anime-search
+Anime themed project in Vanilla JS developed for training purpose.
+
 This website is using Unofficial MyAnimeList API - [Jikan](https://jikan.docs.apiary.io/#reference).
 
 Provides an anime search ability by name and detailed info page about selected entry ([in progress](https://github.com/MemboLembo/Anime-search/issues/10)).
