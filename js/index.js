@@ -34,9 +34,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   function formatDate(dateWithWrongFormat) {
     if (dateWithWrongFormat) {
-      const year = new Date(dateWithWrongFormat).getFullYear();
-      const mounth = new Date(dateWithWrongFormat).getMonth();
-      const day = new Date(dateWithWrongFormat).getDay();
+      const date = new Date(dateWithWrongFormat);
+      const year = date.getFullYear();
+      const mounth = date.getMonth();
+      const day = date.getDay();
       return year + '.' +
              (mounth > 9 ? mounth : String(mounth).padStart(2, '0')) + '.' +
              (day > 9 ? day : String(day).padStart(2, '0'))
@@ -57,7 +58,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   function checkVideoExistence(videoUrl) {
     if (videoUrl) {
-      return `<iframe width="560" height="315" src="${videoUrl.replace('autoplay=1','autoplay=0')}" frameborder="0" allow="accelerometer; autoplay = 0; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>Your browser does not support iframes!</iframe>`
+      return `<iframe width="560" height="315" src="${videoUrl.replace('autoplay=1','autoplay=0')}" + 
+      frameborder="0" allow="accelerometer; autoplay = 0; encrypted-media; gyroscope; picture-in-picture" + 
+      allowfullscreen>Your browser does not support iframes!</iframe>`
     }
     return '-'
   };
