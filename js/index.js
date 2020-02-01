@@ -48,10 +48,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   function getNameListFromObjects(objects) {
     if (objects && objects.length !== 0) {
       return objects.map(o => o.name).join(', ');
-      // return objects.reduce((nameList, object, i) => {
-      //   const isLast = objects.length === i + 1 
-      //   return nameList + object.name + (isLast? '' : ', ');
-      // }, '');
     }
     return '-'
   };
@@ -90,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   btn.addEventListener('click', function (e) {
     e.preventDefault();
     const searchVar = userSearch.value;
-    console.log(searchVar);
     const loadingAnimation = document.querySelector('.letter-holder');
     loadingAnimation.style = "display: block;";
 
