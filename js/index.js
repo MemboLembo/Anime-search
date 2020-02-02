@@ -18,19 +18,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
           <div class="search-result__anime-content__bottom">
             <div class="search-result__anime-content__score">&#x2605 ${score}</div>
             <div class="search-result__anime-content__episodes">ep. ${episodeCount}</div>
-          </div>`
-  };
+          </div>`;
+  }
 
   function animeInfoTemplate(className, info = '-') {
-    return `<div class="search-result__anime-content_specific-anime-${className}">${info}</div>`
-  };
+    return `<div class="search-result__anime-content_specific-anime-${className}">${info}</div>`;
+  }
 
   function checkTitleExistence(title) {
     if (title) {
       return title;
     }
-    return ''
-  };
+    return '';
+  }
 
   function formatDate(dateWithWrongFormat) {
     if (dateWithWrongFormat) {
@@ -42,15 +42,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
              (mounth > 9 ? mounth : String(mounth).padStart(2, '0')) + '.' +
              (day > 9 ? day : String(day).padStart(2, '0'))
     }
-    return '-'
-  };
+    return '-';
+  }
 
   function getNameListFromObjects(objects) {
     if (objects && objects.length !== 0) {
       return objects.map(o => o.name).join(', ');
     }
-    return '-'
-  };
+    return '-';
+  }
 
   function checkVideoExistence(videoUrl) {
     if (videoUrl) {
@@ -58,30 +58,30 @@ document.addEventListener("DOMContentLoaded", function (event) {
       frameborder="0" allow="accelerometer; autoplay = 0; encrypted-media; gyroscope; picture-in-picture" + 
       allowfullscreen>Your browser does not support iframes!</iframe>`
     }
-    return '-'
-  };
+    return '-';
+  }
 
   function specificAnimePageTemplate(anime) {
-    return `${animeInfoTemplate('imageUrl', `<img src="${anime.image_url}" alt="image">`)}
-          ${animeInfoTemplate('title', checkTitleExistence(anime.title))}
-          ${animeInfoTemplate('score', "<span>&#x2605 </span>" + anime.score)}
-          ${animeInfoTemplate('scored_by', '<span>Scored_by: </span>' + anime.scored_by)}
-          ${animeInfoTemplate('title_english', checkTitleExistence(anime.title_english))}
-          ${animeInfoTemplate('title_japanese', checkTitleExistence(anime.title_japanese))}
-          <hr>
-          ${animeInfoTemplate('status', '<span>Status: </span>' + anime.status)}
-          ${animeInfoTemplate('aired', '<span>Aired: </span>  from: ' + formatDate(anime.aired.from) + ', to: ' + formatDate(anime.aired.to))}
-          ${animeInfoTemplate('genres', '<span>Genres: </span>' + getNameListFromObjects(anime.genres))}
-          ${animeInfoTemplate('source', '<span>Source: </span>' + anime.source)}
-          ${animeInfoTemplate('producers', '<span>Producers: </span>' + getNameListFromObjects(anime.producers))}
-          ${animeInfoTemplate('licensors', '<span>Licensors: </span>' + getNameListFromObjects(anime.licensors))}
-          ${animeInfoTemplate('type', '<span>Type: </span>' + anime.type)}
-          ${animeInfoTemplate('synopsis', '<span>Synopsis: </span>' + anime.synopsis)}
-          ${animeInfoTemplate('duration', '<span>Duration: </span>' + anime.duration)}
-          ${animeInfoTemplate('episodes', '<span>Episodes: </span>' + anime.episodes)}
-          <div class='trailer-name'><span>Trailer: </span></div>
-          ${animeInfoTemplate('trailer_url', checkVideoExistence(anime.trailer_url))}`
-  };
+    return animeInfoTemplate('imageUrl', `<img src="${anime.image_url}" alt="image">`) + 
+      animeInfoTemplate('title', checkTitleExistence(anime.title)) + 
+      animeInfoTemplate('score', "<span>&#x2605 </span>" + anime.score) + 
+      animeInfoTemplate('scored_by', '<span>Scored_by: </span>' + anime.scored_by) + 
+      animeInfoTemplate('title_english', checkTitleExistence(anime.title_english)) + 
+      animeInfoTemplate('title_japanese', checkTitleExistence(anime.title_japanese)) + 
+      `<hr>` + 
+      animeInfoTemplate('status', '<span>Status: </span>' + anime.status) + 
+      animeInfoTemplate('aired', '<span>Aired: </span>  from: ' + formatDate(anime.aired.from) + ', to: ' + formatDate(anime.aired.to)) + 
+      animeInfoTemplate('genres', '<span>Genres: </span>' + getNameListFromObjects(anime.genres)) + 
+      animeInfoTemplate('source', '<span>Source: </span>' + anime.source) + 
+      animeInfoTemplate('producers', '<span>Producers: </span>' + getNameListFromObjects(anime.producers)) + 
+      animeInfoTemplate('licensors', '<span>Licensors: </span>' + getNameListFromObjects(anime.licensors)) + 
+      animeInfoTemplate('type', '<span>Type: </span>' + anime.type) + 
+      animeInfoTemplate('synopsis', '<span>Synopsis: </span>' + anime.synopsis) + 
+      animeInfoTemplate('duration', '<span>Duration: </span>' + anime.duration) + 
+      animeInfoTemplate('episodes', '<span>Episodes: </span>' + anime.episodes) + 
+      `<div class='trailer-name'><span>Trailer: </span></div>` + 
+      animeInfoTemplate('trailer_url', checkVideoExistence(anime.trailer_url));
+  }
 
   btn.addEventListener('click', function (e) {
     e.preventDefault();
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     fetch(`https://api.jikan.moe/v3/search/anime?q=${searchVar}`)
       .then(function (resp) {
         if (resp.ok) {
-          return resp.json()
+          return resp.json();
         }
 
         return resp.json().then(errorData => {
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             const hoverElement = document.createElement('div');
             hoverElement.classList.add('search-result__anime-content__hover');
-            const kekId = result.mal_id;
+            const animeId = result.mal_id;
             itemElement.appendChild(hoverElement);
 
             hoverElement.innerHTML = createItemHtml(result);
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             hoverElement.addEventListener('click', function () {
               loadingAnimation.style = "display: block;";
 
-              fetch(`https://api.jikan.moe/v3/anime/${kekId}`)
+              fetch(`https://api.jikan.moe/v3/anime/${animeId}`)
                 .then(response => response.json())
                 .then(function (specificAnime) {
                   loadingAnimation.style = "display: none;";
