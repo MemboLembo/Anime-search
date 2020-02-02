@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "sass": "sass sass/style.sass css/style.min.css --style=compressed"
+  },
+  "devDependencies": {
+    "sass": "^1.25.0"
+  }
+}
