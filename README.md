@@ -13,6 +13,7 @@ Usage of this website is quite simple. All u need to do is clone repository, com
 ```shell script
 git clone https://github.com/MemboLembo/Anime-search.git
 cd Anime-search
+npm install
 npm run sass
 
 npx http-server .
