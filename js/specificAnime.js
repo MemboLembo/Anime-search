@@ -2,6 +2,7 @@ import { fetchUrl } from './utils.js';
 
 
 export async function renderAnime(id, container) {
+  container.innerHTML = '';
   const specificAnime = await fetchUrl(`https://api.jikan.moe/v3/anime/${id}`);
 
   container.classList.add('search-result__anime-content_specific-anime');
