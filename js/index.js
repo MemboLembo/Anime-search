@@ -1,36 +1,26 @@
 'use strict';
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function () {
   const userSearch = document.querySelector('.search-form__content__input');
-  const btn = document.querySelector('.search-form__content__btn');
+  const searchButton = document.querySelector('.search-form__content__btn');
+  const loadingAnimation = document.querySelector('.letter-holder');
 
-  btn.addEventListener('click', function (e) {
+  const animeContent = document.querySelector('.search-result__anime-content');
+
+  searchButton.addEventListener('click', function (e) {
     e.preventDefault();
     const searchVar = userSearch.value;
-    const loadingAnimation = document.querySelector('.letter-holder');
     loadingAnimation.style = "display: block;";
 
-    fetch(`https://api.jikan.moe/v3/search/anime?q=${searchVar}`)
-      .then(function (resp) {
-        if (resp.ok) {
-          return resp.json();
-        }
-
-        return resp.json().then(errorData => {
-          const e = new Error('Something went wrong');
-          e.data = errorData;
-          throw e;
-        });
-      })
+    fetchUrl(`https://api.jikan.moe/v3/search/anime?q=${searchVar}`)
       .then(function (data) {
         loadingAnimation.style = "display: none;";
-
-        const animeContent = document.querySelector('.search-result__anime-content');
-        animeContent.innerHTML = '';
         animeContent.classList.remove('search-result__anime-content_specific-anime');
 
-        if (data.results.length == 0) {
+        if (!data.results.length) {
           animeContent.innerHTML = 'Nothing has been found';
         } else {
+          animeContent.innerHTML = '';
+
           data.results.forEach((result) => {
 
             const itemElement = document.createElement('div');
@@ -44,20 +34,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             hoverElement.innerHTML = createItemHtml(result);
 
-            hoverElement.addEventListener('click', function () {
+            hoverElement.addEventListener('click', async function () {
               loadingAnimation.style = "display: block;";
 
-              fetch(`https://api.jikan.moe/v3/anime/${animeId}`)
-                .then(response => response.json())
-                .then(function (specificAnime) {
-                  loadingAnimation.style = "display: none;";
-                  console.log(specificAnime);
-                  animeContent.classList.add('search-result__anime-content_specific-anime');
-                  animeContent.innerHTML = specificAnimePageTemplate(specificAnime);
-                });
               animeContent.innerHTML = '';
               document.body.scrollTop = 0; // For Safari
               document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
+              await renderAnime(animeId, animeContent);
+
+              loadingAnimation.style = "display: none;";
             });
           });
 
