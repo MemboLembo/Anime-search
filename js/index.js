@@ -1,4 +1,11 @@
-'use strict';
+import { fetchUrl } from './utils.js';
+import { renderAnime } from './specificAnime.js';
+import { createItemHtml } from './createItemHtml.js';
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
   const userSearch = document.querySelector('.search-form__content__input');
   const searchButton = document.querySelector('.search-form__content__btn');
