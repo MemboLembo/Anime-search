@@ -1,6 +1,4 @@
-
-
-function fetchUrl (url) {
+export function fetchUrl (url) {
   return fetch(url)
     .then(function (resp) {
       if (resp.ok) {

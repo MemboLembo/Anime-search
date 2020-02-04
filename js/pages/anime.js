@@ -1,10 +1,26 @@
+import { fetchUrl } from '../utils.js';
+import { loadingAnimationToggle } from '../dom-utils.js';
+import { setInputVal } from '../dom-utils.js';
 
 
-async function renderAnime(id, container) {
-  const specificAnime = await fetchUrl(`https://api.jikan.moe/v3/anime/${id}`);
+export async function renderAnime(id, container) {
+  loadingAnimationToggle("display: block;");
+  setInputVal('');
+  container.innerHTML = '';
 
-  container.classList.add('search-result__anime-content_specific-anime');
-  container.innerHTML = specificAnimeTemplate(specificAnime);
+  try {
+    const specificAnime = await fetchUrl(`https://api.jikan.moe/v3/anime/${id}`)
+    loadingAnimation.style = "display: none;";
+    container.classList.add('search-result__anime-content_specific-anime');
+    container.innerHTML = specificAnimeTemplate(specificAnime);
+  } catch(error) {
+    const loadingStatus = document.querySelector('.loading-status');
+    if (error.message === 'Something went wrong') {
+      loadingStatus.innerText = `Something went wrong, try again later`;
+    } else {
+      loadingStatus.innerText = 'Failed to connect';
+    }
+  }
 }
 
 function specificAnimeTemplate (anime) {

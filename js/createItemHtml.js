@@ -1,4 +1,4 @@
-function createItemHtml (result) {
+export function createItemHtml (result) {
   const {
     title,
     score,
