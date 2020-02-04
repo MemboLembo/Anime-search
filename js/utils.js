@@ -1,4 +1,3 @@
-
 export function fetchUrl (url) {
   return fetch(url)
     .then(function (resp) {
