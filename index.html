@@ -6,11 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/style.min.css">
-  <script src="/js/index.js" type="module"></script>
+  <script src="js/index.js" type="module"></script>
   <title>Document</title>
 </head>
 
 <body>
+  <header>
+    <div class="container">
+      <div class="header">
+        <div class="header__home">
+          <img src="images/header/head.png" alt="image">
+        </div>
+  
+        <div class="header__random">
+          <img src="images/header/random.gif" alt="image">
+        </div>
+      </div>
+    </div>
+  </header>
   <section class="anime-list">
     <div class="container container_anime-list">
       <aside class="search-window">
@@ -19,12 +32,12 @@
             <label class="search-form__content__label" for="search">Enter name of the anime you need</label>
             <input class="search-form__content__input" id="search" type="text" autocomplete="off" name="searchInput"
                    placeholder="Tap here">
-
             <button class="search-form__content__btn" type="submit">Lets GO!</button>
           </div>
         </form>
 
         <div class="loading-status">
+          <div class="errors"></div>
           <div class="letter-holder">
             <div class="l-1 letter">L</div>
             <div class="l-2 letter">o</div>
@@ -45,6 +58,9 @@
       </section>
     </div>
   </section>
+  <div class="button-scroll-top">
+    <img src="images/dragon.gif" alt="up">
+  </div>
 </body>
 
 </html>

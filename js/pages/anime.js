@@ -1,24 +1,34 @@
 import { fetchUrl } from '../utils.js';
 import { loadingAnimationToggle } from '../dom-utils.js';
 import { setInputVal } from '../dom-utils.js';
-
+import { setErrorOutput } from '../dom-utils.js';
+import { goTo } from '../router.js';
+import { removeListenerOfScroll } from '../dom-utils.js';
 
 export async function renderAnime(id, container) {
+  removeListenerOfScroll();
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
   loadingAnimationToggle("display: block;");
   setInputVal('');
+  setErrorOutput('');
   container.innerHTML = '';
 
   try {
-    const specificAnime = await fetchUrl(`https://api.jikan.moe/v3/anime/${id}`)
-    loadingAnimation.style = "display: none;";
+    const specificAnime = await fetchUrl(`https://api.jikan.moe/v3/anime/${id}`);
+    loadingAnimationToggle("display: none;");
     container.classList.add('search-result__anime-content_specific-anime');
+
     container.innerHTML = specificAnimeTemplate(specificAnime);
+
+    animeReferenceListener();
   } catch(error) {
-    const loadingStatus = document.querySelector('.loading-status');
+    loadingAnimationToggle("display: none;");
     if (error.message === 'Something went wrong') {
-      loadingStatus.innerText = `Something went wrong, try again later`;
+      setErrorOutput(`Something went wrong, try again later`);
     } else {
-      loadingStatus.innerText = 'Failed to connect';
+      setErrorOutput('Failed to connect');
     }
   }
 }
@@ -42,7 +52,8 @@ function specificAnimeTemplate (anime) {
     animeInfoTemplate('duration', '<span>Duration: </span>' + anime.duration) +
     animeInfoTemplate('episodes', '<span>Episodes: </span>' + anime.episodes) +
     `<div class='trailer-name'><span>Trailer: </span></div>` +
-    animeInfoTemplate('trailer_url', embedVideoTemplate(anime.trailer_url));
+    animeInfoTemplate('trailer_url', embedVideoTemplate(anime.trailer_url)) + 
+    animeInfoTemplate('related', '<span>Related: </span>' + getRelatedAnimes(anime.related));
 }
 
 function animeInfoTemplate (className, info = '-') {
@@ -81,4 +92,33 @@ function embedVideoTemplate (videoUrl) {
             </iframe>`
   }
   return '-';
+}
+
+function getRelatedAnimes(relatedAnimesObj) {
+  if (relatedAnimesObj && Object.keys(relatedAnimesObj).length !== 0) {
+    let groupNamesHolder = '';
+    for (let [key, animesInfo] of Object.entries(relatedAnimesObj)) {
+      let namesHolder = [];
+      for (let anime of animesInfo) {
+        namesHolder.push(`<li id="${anime.mal_id}" class="anime-links">${anime.name}</li>`);
+      }
+      groupNamesHolder += `<ul class="group-names">
+                  <span>${key}: </span> 
+                  ${namesHolder.join('')}
+              </ul>`;
+    }
+    return groupNamesHolder;
+  }
+  return '-';
+}
+
+function animeReferenceListener() {
+  let list = document.querySelector('.search-result__anime-content_specific-anime-related');
+  list.addEventListener('click', function(event) {
+    let target = event.target;
+    if (target && target.classList.contains('anime-links')) {
+      goTo('anime/' + target.id);
+    }
+  })
+
 }

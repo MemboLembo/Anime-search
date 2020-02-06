@@ -3,10 +3,15 @@ import { createItemHtml } from '../createItemHtml.js';
 import { goTo } from '../router.js';
 import { loadingAnimationToggle } from '../dom-utils.js';
 import { setInputVal } from '../dom-utils.js';
+import { setErrorOutput } from '../dom-utils.js';
+import { addListenerOfScroll } from '../dom-utils.js';
+import { setScrollTop } from '../dom-utils.js';
 
 export async function renderSearch(searchVar, animeContent) {
   loadingAnimationToggle("display: block;");
+  setErrorOutput('');
   setInputVal(searchVar);
+  animeContent.innerHTML = '';
 
   await fetchUrl(`https://api.jikan.moe/v3/search/anime?q=${searchVar}`)
   .then(function (data) {
@@ -16,7 +21,6 @@ export async function renderSearch(searchVar, animeContent) {
     if (!data.results.length) {
       animeContent.innerHTML = 'Nothing has been found';
     } else {
-      animeContent.innerHTML = '';
   
       data.results.forEach((result) => {
 
@@ -32,9 +36,6 @@ export async function renderSearch(searchVar, animeContent) {
         hoverElement.innerHTML = createItemHtml(result);
   
         hoverElement.addEventListener('click', async function () {
-          document.body.scrollTop = 0; // For Safari
-          document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-  
           goTo('anime/' + animeId);
         });
       });
@@ -45,14 +46,15 @@ export async function renderSearch(searchVar, animeContent) {
         animeContent.appendChild(lastRow);
       }
     }
-  
+    setScrollTop();
+    addListenerOfScroll();
   })
   .catch(function (error) {
-    const loadingStatus = document.querySelector('.loading-status');
+    loadingAnimationToggle("display: none;");
     if (error.message === 'Something went wrong') {
-      loadingStatus.innerText = `Something went wrong, try again later`;
+      setErrorOutput(`Something went wrong, try again later`);
     } else {
-      loadingStatus.innerText = 'Failed to connect';
+      setErrorOutput('Failed to connect');
     }
   });
 }
