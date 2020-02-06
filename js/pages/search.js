@@ -37,7 +37,6 @@ export async function renderSearch(searchVar, animeContent) {
   
         hoverElement.addEventListener('click', async function () {
           goTo('anime/' + animeId);
-          console.log('search');
         });
       });
   
