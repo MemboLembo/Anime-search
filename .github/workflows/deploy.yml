@@ -3,7 +3,7 @@ name: CI
 on: 
   push:
     branches:    
-      - qwe
+      - master
 
 jobs:
   build:
@@ -24,4 +24,4 @@ jobs:
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
         external_repository: MemboLembo/MemboLembo.github.io
         publish_dir: ./out
-        publish_branch: kek
+        publish_branch: master
