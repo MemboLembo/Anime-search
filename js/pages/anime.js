@@ -97,7 +97,7 @@ function getRelatedAnimes(relatedAnimesObj) {
     for (let [key, animesInfo] of Object.entries(relatedAnimesObj)) {
       let namesHolder = [];
       for (let anime of animesInfo) {
-        namesHolder.push(`<li><a href="/#anime/${anime.mal_id}" class="anime-links">${anime.name}</a></li>`);
+        namesHolder.push(`<li><a href="#anime/${anime.mal_id}" class="anime-links">${anime.name}</a></li>`);
       }
       groupNamesHolder += `<ul class="group-names">
                   <span>${key}: </span> 
