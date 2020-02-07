@@ -2,7 +2,6 @@ import { fetchUrl } from '../utils.js';
 import { loadingAnimationToggle } from '../dom-utils.js';
 import { setInputVal } from '../dom-utils.js';
 import { setErrorOutput } from '../dom-utils.js';
-import { goTo } from '../router.js';
 import { removeListenerOfScroll } from '../dom-utils.js';
 
 export async function renderAnime(id, container) {
@@ -21,8 +20,6 @@ export async function renderAnime(id, container) {
     container.classList.add('search-result__anime-content_specific-anime');
 
     container.innerHTML = specificAnimeTemplate(specificAnime);
-
-    animeReferenceListener();
   } catch(error) {
     loadingAnimationToggle("display: none;");
     if (error.message === 'Something went wrong') {
@@ -100,7 +97,7 @@ function getRelatedAnimes(relatedAnimesObj) {
     for (let [key, animesInfo] of Object.entries(relatedAnimesObj)) {
       let namesHolder = [];
       for (let anime of animesInfo) {
-        namesHolder.push(`<li id="${anime.mal_id}" class="anime-links">${anime.name}</li>`);
+        namesHolder.push(`<li><a href="/#anime/${anime.mal_id}" class="anime-links">${anime.name}</a></li>`);
       }
       groupNamesHolder += `<ul class="group-names">
                   <span>${key}: </span> 
@@ -110,15 +107,4 @@ function getRelatedAnimes(relatedAnimesObj) {
     return groupNamesHolder;
   }
   return '-';
-}
-
-function animeReferenceListener() {
-  let list = document.querySelector('.search-result__anime-content_specific-anime-related');
-  list.addEventListener('click', function(event) {
-    let target = event.target;
-    if (target && target.classList.contains('anime-links')) {
-      goTo('anime/' + target.id);
-    }
-  })
-
 }

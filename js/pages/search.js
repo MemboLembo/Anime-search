@@ -1,6 +1,5 @@
 import { fetchUrl } from '../utils.js';
 import { createItemHtml } from '../createItemHtml.js';
-import { goTo } from '../router.js';
 import { loadingAnimationToggle } from '../dom-utils.js';
 import { setInputVal } from '../dom-utils.js';
 import { setErrorOutput } from '../dom-utils.js';
@@ -28,16 +27,12 @@ export async function renderSearch(searchVar, animeContent) {
         itemElement.classList.add('search-result__anime-content__item');
         animeContent.appendChild(itemElement);
   
-        const hoverElement = document.createElement('div');
+        const hoverElement = document.createElement('a');
         hoverElement.classList.add('search-result__anime-content__hover');
-        const animeId = result.mal_id;
+        hoverElement.setAttribute('href', `/#anime/${result.mal_id}`)
         itemElement.appendChild(hoverElement);
   
         hoverElement.innerHTML = createItemHtml(result);
-  
-        hoverElement.addEventListener('click', async function () {
-          goTo('anime/' + animeId);
-        });
       });
   
       for (let i = 0; i < 3; i++) {

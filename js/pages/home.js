@@ -7,12 +7,7 @@ import { randomAnime } from '../random-anime.js';
 export const initHome = () => {
   const userSearch = document.querySelector('.search-form__content__input');
   const searchButton = document.querySelector('.search-form__content__btn');
-  const homeButton = document.querySelector('.header__home');
   const randomButton = document.querySelector('.header__random');
-
-  homeButton.addEventListener('click', function() {
-    goTo('');
-  });
 
   randomButton.addEventListener('click', function() {
     loadingAnimationToggle("display: block;");
