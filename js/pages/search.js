@@ -32,7 +32,7 @@ export async function renderSearch(searchVar, animeContent, filterEnabled) {
 
         const hoverElement = document.createElement('a');
         hoverElement.classList.add('search-result__anime-content__hover');
-        hoverElement.setAttribute('href', `/#anime/${result.mal_id}`)
+        hoverElement.setAttribute('href', `#anime/${result.mal_id}`)
         itemElement.appendChild(hoverElement);
 
         hoverElement.innerHTML = createItemHtml(result);
