@@ -1,0 +1,25 @@
+name: CI
+
+on: 
+  push:
+    branches:    
+      - qwe
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Build
+      run: mkdir ./out && mkdir ./out/anime && cp -r css fonts images js ./out/anime/ && cp index.html ./out/anime/
+      
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        personal_token: ${{ secrets.PERSONAL_TOKEN }}
+        external_repository: MemboLembo/MemboLembo.github.io
+        publish_dir: ./out
+        publish_branch: kek
