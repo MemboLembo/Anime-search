@@ -7,7 +7,7 @@ export const goTo = (hash) => {
 };
 
 const ANIME_RE = /anime\/(\d+)/;
-const SEARCH_RE = /search\/(.+)/;
+const SEARCH_RE = /search\/(.+(\/nsfw$)|.+)/;
 
 export const handleHash = () => {
   const { hash } = window.location;
@@ -19,8 +19,17 @@ export const handleHash = () => {
     const [, id] = ANIME_RE.exec(hash);
     renderAnime(id, animeContent);
   } else if (SEARCH_RE.test(hash)) {
-    const [, searchInput] = SEARCH_RE.exec(hash);
-    renderSearch(searchInput, animeContent);
+    const [, searchInput, nsfwMode] = SEARCH_RE.exec(hash);
+    
+
+    if (nsfwMode) {
+      const checkBox = document.querySelector('.nsfw__checkbox');
+      checkBox.checked = true;
+      const searchInputHolder = decodeURIComponent(searchInput).replace(/\/nsfw$/, '')
+      renderSearch(searchInputHolder, animeContent, false);
+    } else {
+      renderSearch(searchInput, animeContent, true);
+    }
   }
 };
 
