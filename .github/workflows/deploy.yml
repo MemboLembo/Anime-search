@@ -13,7 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       
-    - name: Build
+    - name: Build SASS
+      run: yarn && yarn sass
+    - name: Bundle
       run: mkdir ./out && mkdir ./out/anime && cp -r css fonts images js ./out/anime/ && cp index.html ./out/anime/
       
     - name: Deploy
