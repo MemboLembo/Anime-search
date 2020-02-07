@@ -16,9 +16,14 @@ export const initHome = () => {
 
   searchButton.addEventListener('click', function (e) {
     e.preventDefault();
-    const searchVar = userSearch.value;
+    const searchVar = encodeURIComponent(userSearch.value);
+    const checkBox = document.querySelector('.nsfw__checkbox');
 
-    goTo('search/' + searchVar);
+    if (checkBox.checked === false) {
+      goTo('search/' + searchVar);
+    } else {
+      goTo('search/' + searchVar + '/nsfw');
+    }
   });
 };
 
