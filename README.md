@@ -1,4 +1,4 @@
-# Anime-search
+# Anime-search [[link]](https://membolembo.github.io/anime/index.html)
 Anime themed project in Vanilla JS developed for training purpose.
 
 This website is using Unofficial MyAnimeList API - [Jikan](https://jikan.docs.apiary.io/#reference).
@@ -20,3 +20,8 @@ npx http-server .
 ```
 
 `http-server` is as example here. You can use any other static HTTP server you like.
+
+For dev process it's recommended to run `sass` compiler in `watch` mode:
+```shell
+npm run sass --watch
+```
