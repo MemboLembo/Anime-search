@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "sass": "sass sass/style.sass css/style.min.css --style=compressed"
+    "sass": "sass sass/style.sass css/style.min.css --style=compressed",
+    "dev": "sass sass/style.sass css/style.min.css --style=compressed --watch"
   },
   "devDependencies": {
     "sass": "^1.25.0"
